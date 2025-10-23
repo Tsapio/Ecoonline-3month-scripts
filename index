@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoOnline Video Strategy Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F7F6;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .text-primary-dark {
+            color: #001C36;
+        }
+        .text-brand-navy {
+            color: #002F5B;
+        }
+        .bg-brand-navy {
+            background-color: #002F5B;
+        }
+        .bg-accent-cyan {
+            background-color: #00C2B8;
+        }
+        .text-accent-cyan {
+            color: #00C2B8;
+        }
+        .bg-action-orange {
+            background-color: #FC913A;
+        }
+        .text-action-orange {
+            color: #FC913A;
+        }
+        .brand-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .grid-cell {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+        }
+        .grid-month-row {
+            background-color: #E6EEF5; /* Light blue/gray background for header separation */
+            color: #002F5B;
+            font-size: 1.125rem;
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid #D9D9D9;
+        }
+    </style>
+</head>
+<body class="text-brand-navy">
+
+    <!-- The selected palette for this infographic is the combination of Primary Dark, Brand Navy, Accent Cyan, and Action Orange. -->
+    <!-- NEITHER Mermaid JS NOR SVG were used anywhere in the output. -->
+
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-primary-dark mb-4">VIDEO CONTENT: The Hard Reset</h1>
+            <p class="text-2xl md:text-3xl font-semibold text-accent-cyan">A Strategy for ICP Capture and Global Brand Velocity</p>
+        </header>
+
+        <section class="brand-card md:col-span-2">
+            <h2 class="text-3xl font-bold text-brand-navy border-b-4 border-accent-cyan pb-3 mb-6">Pillar 1: Critical Assessment & The Atlassian Benchmark</h2>
+            <p class="text-lg mb-8">
+                Your current average video length of **over 6 minutes** is a conversion killer. To compete in B2B SaaS, your content must be segmented and short. We are adopting a high-velocity, low-friction content structure aligned with Atlassian's model: **Quick Tips (<60s)** for virality and **ICP Demos (2-3 min)** for high-intent lead capture.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-10">
+                <div class="p-6 bg-brand-navy text-white rounded-lg shadow-lg">
+                    <span class="block text-5xl font-extrabold">6:32</span>
+                    <p class="mt-2 text-sm opacity-80">Current Avg. Video Length</p>
+                </div>
+                <div class="p-6 bg-accent-cyan text-primary-dark rounded-lg shadow-lg">
+                    <span class="block text-5xl font-extrabold">2:30</span>
+                    <p class="mt-2 text-sm">Target Avg. Demo Length</p>
+                </div>
+                <div class="p-6 bg-action-orange text-primary-dark rounded-lg shadow-lg">
+                    <span class="block text-5xl font-extrabold">12</span>
+                    <p class="mt-2 text-sm">Videos Per Month (Minimum Velocity)</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="benchmarkChart"></canvas>
+            </div>
+        </section>
+
+        <section class="brand-card md:col-span-2">
+            <h2 class="text-3xl font-bold text-brand-navy border-b-4 border-accent-cyan pb-3 mb-6">Pillar 2: The 3-Month Content Forecast</h2>
+            <p class="text-lg mb-8">
+                This plan is structured around three core themes and targets four key ICPs. We are generating **12 videos per month** (8 Quick Tips, 4 ICP Demos), resulting in 36 highly-focused assets over 90 days.
+            </p>
+            <div class="chart-container">
+                <canvas id="forecastChart"></canvas>
+            </div>
+        </section>
+
+        <section class="brand-card md:col-span-2">
+            <h2 class="text-3xl font-bold text-brand-navy border-b-4 border-accent-cyan pb-3 mb-6">Pillar 3: The Content Deployment Grid (12 Weeks)</h2>
+            <p class="text-lg mb-8">
+                Every title is engineered to speak directly to a pain point. The **Quick Tips (QT)** build virality and search visibility. The **ICP Demos (DEMO)** are your conversion workhorses. **Duration is a hard constraint.**
+            </p>
+
+            <div class="overflow-x-auto rounded-lg shadow-xl">
+                <div class="min-w-[1400px] text-sm">
+                    <!-- COLUMN HEADERS - FIXED STYLING -->
+                    <div class="grid grid-cols-6 bg-brand-navy text-white font-bold divide-x divide-white/20">
+                        <div class="p-3 w-[10%]">Week</div>
+                        <div class="p-3 w-[10%]">Type</div>
+                        <div class="p-3 w-[10%]">Duration</div>
+                        <div class="p-3 w-[40%]">Title (Pain Point Focused)</div>
+                        <div class="p-3 w-[15%]">Target ICP</div>
+                        <div class="p-3 w-[15%]">Goal</div>
+                    </div>
+
+                    <!-- MONTH 1: EFFICIENCY -->
+                    <div class="grid-month-row col-span-full">Month 1: EFFICIENCY (Time & Automation)</div>
+                    
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W1</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Stop Hunting! The 30-Second Chemical Search Hack</div>
+                        <div class="grid-cell">EHS Specialist</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W1</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">How Safety Managers Cut Incident Reporting Time by 40%</div>
+                        <div class="grid-cell">Safety Manager</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W2</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Auto-Assigning Training: The 2-Click Workflow for Ops Directors</div>
+                        <div class="grid-cell">Operations Director</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W2</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Compliance Simplified: Automated SDS Updates & Distribution</div>
+                        <div class="grid-cell">Chemical Compliance Officer</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W3</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">1-Minute Audit Ready: Generating Compliance Reports in 2 Clicks</div>
+                        <div class="grid-cell">Chemical Compliance Officer</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W3</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">The Efficiency Blueprint: Automating Chemical Inventory Management</div>
+                        <div class="grid-cell">EHS Specialist</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W4</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Mobile First: Capturing Incidents Offline for Faster Resolution</div>
+                        <div class="grid-cell">Safety Manager</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W4</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Beyond Paper: Digitalizing Your HSEQ Workflow (For Safety Managers)</div>
+                        <div class="grid-cell">Safety Manager</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    
+                    <!-- MONTH 2: COMPLIANCE -->
+                    <div class="grid-month-row col-span-full">Month 2: COMPLIANCE (Risk & Regulatory)</div>
+                    
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W5</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Lockout/Tagout: How to Prove Compliance Instantly</div>
+                        <div class="grid-cell">Safety Manager</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W5</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Global Compliance: Managing Multi-Region GHS Standards Seamlessly</div>
+                        <div class="grid-cell">Chemical Compliance Officer</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W6</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Know Your Exposure: Quick Hazard Identification Check</div>
+                        <div class="grid-cell">EHS Specialist</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W6</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Why Your Incident Rate Spikes (And How to Fix It with Root Cause)</div>
+                        <div class="grid-cell">Safety Manager</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W7</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">The Critical Difference: Managing Near Misses vs. Incidents</div>
+                        <div class="grid-cell">All Safety Roles</div>
+                        <div class="grid-cell">Thought Leadership / Education</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W7</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Operations Risk: How to Proactively Identify High-Risk Assets</div>
+                        <div class="grid-cell">Operations Director</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W8</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Stop Fines: Automated Chemical Re-Classification Alerts</div>
+                        <div class="grid-cell">Chemical Compliance Officer</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W8</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Training Matrix: Closing Compliance Gaps Immediately for Ops</div>
+                        <div class="grid-cell">Operations Director</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+
+                    <!-- MONTH 3: REPORTING -->
+                    <div class="grid-month-row col-span-full">Month 3: REPORTING (Data & Intelligence)</div>
+                    
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W9</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Executive Dashboards: 60-Second KPI Snapshot</div>
+                        <div class="grid-cell">Operations Director</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W9</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Incident Trends: Using Data to Predict and Prevent Future Events</div>
+                        <div class="grid-cell">Safety Manager</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W10</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">The Data Myth: Why Your Legacy Safety Software is Lying to You</div>
+                        <div class="grid-cell">All Safety Roles</div>
+                        <div class="grid-cell">Thought Leadership / Virality</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W10</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">Chemical Spills: Analyzing Exposure Risk Across All Facilities</div>
+                        <div class="grid-cell">Chemical Compliance Officer</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W11</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Show Your Value: Quarterly Safety Performance Review Report</div>
+                        <div class="grid-cell">Safety Manager</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W11</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">ROI of HSEQ: Quantifying the Value of Your Safety Investment</div>
+                        <div class="grid-cell">Operations Director</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200">
+                        <div class="grid-cell">W12</div>
+                        <div class="grid-cell text-accent-cyan font-bold">QT</div>
+                        <div class="grid-cell font-semibold text-accent-cyan">45s</div>
+                        <div class="grid-cell font-semibold">Proactive Safety: Identifying Leading Indicators in Your Data</div>
+                        <div class="grid-cell">EHS Specialist</div>
+                        <div class="grid-cell">Top-of-Funnel / Utility</div>
+                    </div>
+                    <div class="grid grid-cols-6 items-center divide-x divide-gray-200 bg-gray-50">
+                        <div class="grid-cell">W12</div>
+                        <div class="grid-cell text-action-orange font-bold">DEMO</div>
+                        <div class="grid-cell font-semibold text-action-orange">2:30</div>
+                        <div class="grid-cell font-semibold">The Compliance Story: Visualizing Audit Readiness for the Board</div>
+                        <div class="grid-cell">Chemical Compliance Officer</div>
+                        <div class="grid-cell">Lead Capture / Conversion</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center p-6 bg-accent-cyan/10 rounded-lg">
+                <h3 class="text-xl font-bold text-brand-navy">CRITICAL SCRIPTING MANDATE:</h3>
+                <p class="mt-2 text-lg">Every script must follow a structure: **(0-10s) Problem Hook** → **(10-60s) Solution Demonstration** → **(Last 5s) Clear CTA**. Now that the plan is finalized and visually correct, the next step is content creation.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        
+        const tooltipTitleCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const colors = {
+            primary: '#002F5B', /* Brand Navy */
+            accent: '#00C2B8', /* Accent Cyan */
+            action: '#FC913A', /* Action Orange */
+            darkText: '#001C36',
+            lightGrey: '#D9D9D9'
+        };
+
+        new Chart(document.getElementById('benchmarkChart'), {
+            type: 'bar',
+            data: {
+                labels: [['Atlassian', 'Avg. Length (1:45)'], 'Top B2B SaaS (2:30)', ['EcoOnline', 'Current (6:32)']],
+                datasets: [{
+                    label: 'Video Length (Minutes)',
+                    data: [1.75, 2.5, 6.5],
+                    backgroundColor: [colors.accent, colors.primary, colors.action],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 8,
+                        title: {
+                            display: true,
+                            text: 'Duration in Minutes (Shorter is Better)',
+                            color: colors.darkText
+                        },
+                        ticks: { color: colors.darkText, stepSize: 1 },
+                        grid: { display: false }
+                    },
+                    y: {
+                        ticks: { color: colors.darkText },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Competitive Video Length Benchmark',
+                        color: colors.darkText,
+                        font: { size: 18, weight: 'bold' }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+
+        new Chart(document.getElementById('forecastChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Month 1 (Efficiency)', 'Month 2 (Compliance)', 'Month 3 (Reporting)'],
+                datasets: [
+                    {
+                        label: 'ICP Demos (2-3 min)',
+                        data: [4, 4, 4],
+                        backgroundColor: colors.primary,
+                    },
+                    {
+                        label: 'Quick Tips (<60s)',
+                        data: [8, 8, 8],
+                        backgroundColor: colors.accent,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: { color: colors.darkText },
+                        grid: { display: false }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 15,
+                        title: {
+                            display: true,
+                            text: 'Total Videos Produced Per Month (Goal: 12)',
+                            color: colors.darkText
+                        },
+                        ticks: { color: colors.darkText },
+                        grid: { color: colors.lightGrey }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: colors.darkText
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '3-Month Video Output Forecast (36 Total Assets)',
+                        color: colors.darkText,
+                        font: { size: 18, weight: 'bold' }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    </script>
+</body>
+</html>
