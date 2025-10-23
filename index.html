@@ -61,19 +61,141 @@
             align-items: center;
         }
         .grid-month-row {
-            background-color: #E6EEF5; /* Light blue/gray background for header separation */
+            background-color: #E6EEF5; 
             color: #002F5B;
             font-size: 1.125rem;
             font-weight: 700;
             padding: 0.75rem 1rem;
             border-bottom: 2px solid #D9D9D9;
         }
+        .script-link {
+            color: #002F5B;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.2s;
+            font-weight: 600; 
+        }
+        .script-link:hover {
+            color: #FC913A;
+        }
+        
+        #script-modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background-color: white;
+            z-index: 50;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #script-modal.open {
+            transform: translateX(0);
+        }
+
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            display: none;
+        }
+
+        #modal-overlay.open {
+            display: block;
+        }
+
     </style>
+    <!-- GLOBAL SCRIPT DEFINITIONS (FIXED: MOVED TO HEAD TO ENSURE ONCLICK HANDLERS WORK) -->
+    <script>
+        const videoScripts = {
+            // M1: EFFICIENCY
+            'm1w1qt': { title: 'Stop Hunting! The 30-Second Chemical Search Hack', type: 'Quick Tip', duration: '45s', icp: 'EHS Specialist', script: 'Are you wasting 10 minutes digging through paper binders for a single SDS? Stop. **(VISUAL: Frustrated EHS Specialist rifling through files.)** / EcoOnline centralizes all chemical data. Open the mobile app. Tap the search icon. Scan the barcode on the container, or type in the product name. **(VISUAL: Quick, clean screen recording of the app search/scan functionality.)** / Done. Full GHS data, risk assessment, and safe handling procedures, delivered in seconds. No hunting, no paper, just instant compliance. **(VISUAL: EHS Specialist closing the app, smiling, and walking away.)** / Need faster access? Download the EcoOnline mobile app today.' },
+            'm1w1demo': { title: 'How Safety Managers Cut Incident Reporting Time by 40%', type: 'ICP Demo', duration: '2:30', icp: 'Safety Manager', script: '**[0:00 - 0:10] Problem Hook:** The average safety team spends 18 minutes logging a single incident, often starting with a paper form, leading to data loss and slow follow-up. This inefficiency cripples your investigation process. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline fundamentally redesigns incident workflow. / 1. **Mobile Capture (0:10 - 0:40):** Show an employee using their phone to log an injury/near-miss in under 60 seconds, using location services, voice-to-text notes, and photo upload. *It’s so easy, they’ll actually do it.* / 2. **Automated Triage (0:40 - 1:15):** Demonstrate how the system instantly categorizes the incident (LTI, Near Miss, Property Damage) and automatically assigns the investigation task to the correct supervisor based on department/location—no manual emails required. / 3. **Root Cause Analysis (1:15 - 2:00):** Show the quick, guided five-why or similar analysis workflow integrated directly into the incident record, ensuring supervisors capture root causes, not just symptoms. / 4. **Action Tracking (2:00 - 2:25):** Display the dashboard that tracks overdue preventative actions, guaranteeing nothing falls through the cracks. This 40% time saving lets you focus on prevention, not paperwork. / **[2:25 - 2:30] Clear CTA:** Ready to reclaim your time? Book a personalized workflow analysis for your Safety Management team now.' },
+            'm1w2qt': { title: 'Auto-Assigning Training: The 2-Click Workflow for Ops Directors', type: 'Quick Tip', duration: '45s', icp: 'Operations Director', script: 'Stop manually updating training records every time an employee changes departments. **(VISUAL: Quick cuts of complex excel spreadsheets and old training records.)** / EcoOnline integrates training requirements directly with chemical and job profiles. **(VISUAL: Show an employee profile automatically updating to "Needs Respirator Training" when assigned to a new chemical area.)** / The system auto-sends the required module to the employee and flags the supervisor. Two clicks to update job role, zero administrative work for you. **(VISUAL: Quick split screen of the automated notification and the dashboard training compliance percentage rising.)** / Save your Ops team days of admin time. Find the full training module link below.' },
+            'm1w2demo': { title: 'Compliance Simplified: Automated SDS Updates & Distribution', type: 'ICP Demo', duration: '2:30', icp: 'Chemical Compliance Officer', script: '**[0:00 - 0:10] Problem Hook:** If your facility is running on expired or outdated Safety Data Sheets, you’re not compliant—you’re a regulatory target. Chasing vendors for updates is a full-time, high-risk administrative burden. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline turns chemical compliance from reactive to proactive. / 1. **The Library Guarantee (0:10 - 0:45):** Highlight the enormous, maintained SDS database. Show a seamless drag-and-drop of a new product into the system. The system auto-populates all necessary data. / 2. **Automated Vendor Check (0:45 - 1:20):** Demonstrate the system’s automated monitoring. Show a notification pop up: *SDS for Product X updated on Y date.* This happens without any manual intervention. / 3. **Instant Global Distribution (1:20 - 2:00):** Show how a new SDS instantly updates all digital safety boards, mobile apps, and printed copies across every facility, globally, ensuring every worker and auditor sees the correct, current document. / 4. **Compliance Dashboard (2:00 - 2:25):** Display the live dashboard showing *100% SDS Compliance* across the organization. This removes all regulatory uncertainty. / **[2:25 - 2:30] Clear CTA:** Eliminate the risk of fines. Request a personalized compliance audit for your chemical inventory today.' },
+            'm1w3qt': { title: '1-Minute Audit Ready: Generating Compliance Reports in 2 Clicks', type: 'Quick Tip', duration: '45s', icp: 'Chemical Compliance Officer', script: 'When an auditor walks in, do you sweat? You shouldn’t. **(VISUAL: Stressful, fast-paced shot of a compliance officer scrambling for reports.)** / With EcoOnline, your entire chemical inventory compliance report is two clicks away. **(VISUAL: Screen recording: Navigate to Reports > Select Chemical Register > Generate PDF.)** / This report contains every current SDS, risk assessment, and inventory location, all time-stamped for audit confidence. **(VISUAL: Show a quick, clean scroll through the generated PDF report.)** / Stop fearing the inspection. Get audit-ready documentation in seconds. Check out the full reporting capabilities here.' },
+            'm1w3demo': { title: 'The Efficiency Blueprint: Automating Chemical Inventory Management', type: 'ICP Demo', duration: '2:30', icp: 'EHS Specialist', script: '**[0:00 - 0:10] Problem Hook:** You spend hours every week cross-referencing paper inventory logs, SDS binders, and training requirements. Your time is spent tracking chemicals, not managing risk. That’s a fundamentally flawed system. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline offers a unified digital blueprint for chemical inventory and risk. / 1. **Digital Registration (0:10 - 0:45):** Show the seamless process of adding a new chemical. Scanning the barcode, the system pulls the SDS, auto-classifies it by GHS, and flags regulatory concerns. *Everything is connected.* / 2. **Location Intelligence (0:45 - 1:20):** Demonstrate linking the chemical to a specific storage location (Zone B, Cabinet 4). Show the map or facility layout view where the location is instantly visible. This is vital for emergency response. / 3. **Integrated Risk Assessment (1:20 - 2:00):** From the new chemical’s profile, instantly launch a guided Risk Assessment workflow. Show the EHS Specialist quickly defining exposure and control measures (e.g., requires fume hood), which then links to the SOPs. / 4. **Consolidated View (2:00 - 2:25):** Display the single chemical register dashboard, proving that inventory, safety documents, and risk control are managed from one source of truth. / **[2:25 - 2:30] Clear CTA:** Spend more time managing risk, less time managing paperwork. Book a free consultation on digitizing your chemical register.' },
+            'm1w4qt': { title: 'Mobile First: Capturing Incidents Offline for Faster Resolution', type: 'Quick Tip', duration: '45s', icp: 'Safety Manager', script: 'Accidents don’t wait for Wi-Fi. If your reporting requires a desktop, you’re losing critical, immediate detail. **(VISUAL: Employee trying to take a photo of an incident but seeing "No Service" on their phone.)** / EcoOnline’s mobile app captures the incident details—photos, time, location, witness statements—even if you’re deep underground or off-site. **(VISUAL: Quick screen recording of data entry in the mobile app while "Offline Mode" is indicated.)** / When the device reconnects, the report syncs immediately for investigation to begin. Never lose a crucial detail again. **(VISUAL: Show the report instantly appearing in the desktop inbox.)** / Get the safety details first, worry about Wi-Fi later. Download the EcoOnline app now.' },
+            'm1w4demo': { title: 'Beyond Paper: Digitalizing Your HSEQ Workflow (For Safety Managers)', type: 'ICP Demo', duration: '2:30', icp: 'Safety Manager', script: '**[0:00 - 0:10] Problem Hook:** Your Safety Manual is a binder graveyard. Inspections are checklists stuck in clipboards. Your training records are signatures on a page. This analog HSEQ system guarantees slow response times and missed compliance gaps. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline moves your entire HSEQ structure into a single, proactive digital platform. / 1. **Digital Checklists (0:10 - 0:45):** Show the transition from a paper checklist to a dynamic, tablet-based digital form. Highlight features like mandatory photo evidence and conditional logic (e.g., if "Hazard Found" is checked, a corrective action is automatically created). / 2. **Policy Access (0:45 - 1:20):** Demonstrate how an employee in the field can access the latest SOP or Safety Manual document on their mobile phone in two taps. Show the document version control feature, proving they are viewing the latest approved standard. / 3. **Corrective Action Loop (1:20 - 2:00):** Track an inspection finding (e.g., a faulty ladder) from the field, through automated assignment to Maintenance, and its eventual closure with photo proof—all tracked in one stream. *This closes the loop.* / 4. **HSEQ Dashboard (2:00 - 2:25):** Display the integrated dashboard showing HSEQ activity: open incidents, outstanding actions, and inspection compliance. Total control, zero binders. / **[2:25 - 2:30] Clear CTA:** Stop chasing paper and start managing safety. Let’s digitize your HSEQ workflow—request a demo today.' },
+            // M2: COMPLIANCE
+            'm2w5qt': { title: 'Lockout/Tagout: How to Prove Compliance Instantly', type: 'Quick Tip', duration: '45s', icp: 'Safety Manager', script: 'Can you instantly prove your last 10 LOTO procedures were compliant? Paper logs are a liability. **(VISUAL: Supervisor looking stressed, searching through a massive folder for LOTO sign-offs.)** / EcoOnline digitalizes LOTO permits. **(VISUAL: Show an isolation point being verified via QR code scan on a tablet.)** / Every step—energy isolation, verification, and sign-off—is time-stamped and geo-tagged. A full audit trail generated instantly. **(VISUAL: Quick cut to the automatically generated, tamper-proof LOTO log file.)** / No doubt, no audit risk. Prove your compliance instantly. See the full LOTO functionality.' },
+            'm2w5demo': { title: 'Global Compliance: Managing Multi-Region GHS Standards Seamlessly', type: 'ICP Demo', duration: '2:30', icp: 'Chemical Compliance Officer', script: '**[0:00 - 0:10] Problem Hook:** Running operations in multiple countries means managing conflicting GHS standards (EU CLP, US OSHA, local APAC regulations). This regional divergence is a compliance nightmare that risks huge fines. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline centralizes your chemical data and regionalizes compliance on the fly. / 1. **Central Data Hub (0:10 - 0:45):** Show the core chemical profile. Highlight a single substance (e.g., a cleaning agent). All regional SDS versions are stored and managed here. / 2. **Localized Label Generation (0:45 - 1:20):** Demonstrate selecting a specific chemical and choosing the "Germany" facility. The system instantly generates a GHS label that adheres to all German CLP and language requirements. *One click, localized compliance.* / 3. **Exposure Scenario Mapping (1:20 - 2:00):** Show how the system maps permissible chemical usage limits based on the region. If a US product is flagged as restricted in the EU, the system automatically alerts the purchasing team. / 4. **Global Risk Visibility (2:00 - 2:25):** Display a high-level map view showing compliance status by country (Green for compliant, Yellow for pending regulatory changes). Total clarity across your global footprint. / **[2:25 - 2:30] Clear CTA:** Your compliance headaches are over. Book a session to map your multi-region chemical compliance challenges.' },
+            'm2w6qt': { title: 'Know Your Exposure: Quick Hazard Identification Check', type: 'Quick Tip', duration: '45s', icp: 'EHS Specialist', script: 'Do you know exactly who is exposed to what chemical, right now? **(VISUAL: EHS Specialist trying to track a mobile worker's location vs. a hazardous area.)** / EcoOnline instantly visualizes risk. **(VISUAL: Screen recording: Show selecting a chemical like Acetone, and the system highlighting every worker who has recently worked in the storage or use area.)** / Quickly identify which employees need the mandatory PPE or training *before* the inspection happens. **(VISUAL: Quick cut to a list of employees auto-flagged for follow-up.)** / Proactive risk identification in seconds. See how EcoOnline flags exposure in your inventory.' },
+            'm2w6demo': { title: 'Why Your Incident Rate Spikes (And How to Fix It with Root Cause)', type: 'ICP Demo', duration: '2:30', icp: 'Safety Manager', script: '**[0:00 - 0:10] Problem Hook:** Your incident rate keeps spiking, but your investigation reports only blame "operator error." You’re treating symptoms, not the systemic root cause. This cycle costs your company millions in lost time and premiums. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline enforces a rigorous, data-driven root cause process that turns findings into system improvements. / 1. **Guided Investigation (0:10 - 0:45):** Show the step-by-step incident investigation form that *forces* the investigator past the surface level. It integrates tools like the 5-Whys directly into the digital report. / 2. **Categorical Trending (0:45 - 1:20):** Show the analytics dashboard. Filter incidents by location, activity, and—critically—by **Root Cause Category** (e.g., poor machine guarding, inadequate training). Quickly visualize a spike in 'Training Deficiency'. / 3. **The Corrective Action Link (1:20 - 2:00):** Demonstrate how identifying the root cause 'Inadequate Training' instantly generates a mandatory, trackable Corrective Action to update the training module. *The loop is closed automatically.* / 4. **Prevention Dashboard (2:00 - 2:25):** Display the overall trend: incident rates falling over the 3-month period due to targeted, data-backed actions. / **[2:25 - 2:30] Clear CTA:** Stop blaming people and start fixing systems. Book a demo to see our Root Cause Analysis toolkit in action.' },
+            'm2w7qt': { title: 'The Critical Difference: Managing Near Misses vs. Incidents', type: 'Quick Tip', duration: '45s', icp: 'All Safety Roles', script: 'A near miss is a gift. An incident is a failure. But if reporting takes too long, everyone ignores the near misses. **(VISUAL: Graphics showing the incident pyramid: many near misses, few incidents.)** / EcoOnline simplifies reporting to mobile-first. **(VISUAL: Show the mobile app with a giant "Report Near Miss" button.)** / Log a potential hazard in 30 seconds. Your system automatically focuses on these leading indicators, allowing you to prevent the next incident before it happens. **(VISUAL: Quick cut of a Near Miss report being flagged as a high-priority system fix.)** / Focus on prevention. Start capturing near misses consistently today.' },
+            'm2w7demo': { title: 'Operations Risk: How to Proactively Identify High-Risk Assets', type: 'ICP Demo', duration: '2:30', icp: 'Operations Director', script: '**[0:00 - 0:10] Problem Hook:** You manage dozens of critical assets—from forklifts to complex chemical reactors. But which one is the most likely to fail, cause an incident, and halt production? You need to move past reactive maintenance and manage *risk*. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline overlays HSEQ data directly onto your asset management for a true risk score. / 1. **Asset Profiling (0:10 - 0:45):** Show the Asset Register. Select a critical piece of equipment. The profile shows its maintenance schedule and—crucially—its HSEQ history (e.g., 3 Near Misses in 6 months). / 2. **Risk Scoring Visualization (0:45 - 1:20):** Demonstrate the system generating a **live risk matrix score** for the asset, based on its frequency of use, hazard potential, and incident history. Show the asset moving from Medium to High Risk. / 3. **Proactive Maintenance Trigger (1:20 - 2:00):** Because the risk score is high, the system automatically triggers a high-priority maintenance inspection checklist for the Operations team. *The inspection is driven by safety data, not just clock time.* / 4. **Op Director Dashboard (2:00 - 2:25):** Display the dashboard showing the top 5 highest-risk assets across the entire organization, allowing the Ops Director to allocate budget and resources for prevention. / **[2:25 - 2:30] Clear CTA:** Stop waiting for failures. Get proactive risk intelligence. Book a demo on asset risk management.' },
+            'm2w8qt': { title: 'Stop Fines: Automated Chemical Re-Classification Alerts', type: 'Quick Tip', duration: '45s', icp: 'Chemical Compliance Officer', script: 'Regulatory bodies change chemical classifications without warning. If you miss an update, your safety documentation is instantly non-compliant, inviting fines. **(VISUAL: Quick shot of a headline: "New Regulatory Fine for Outdated GHS Labels.")** / EcoOnline monitors global regulatory databases 24/7. **(VISUAL: Screen recording: Show an email notification in the system that says: "Alert: X Chemical has a revised H-Code.")** / The moment a classification changes, you get an alert. Your associated SDS is flagged, and you can generate new labels instantly. **(VISUAL: Show a quick comparison of the old vs. new GHS label.)** / Stop fearing sudden regulation. Get automated regulatory intelligence today.' },
+            'm2w8demo': { title: 'Training Matrix: Closing Compliance Gaps Immediately for Ops', type: 'ICP Demo', duration: '2:30', icp: 'Operations Director', script: '**[0:00 - 0:10] Problem Hook:** Your greatest liability is an undertrained employee working with a high-hazard asset. Knowing who is qualified to do what is a constant, manual headache that exposes your operations to catastrophic risk. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline provides a dynamic Training Matrix that ensures 100% compliance before work even begins. / 1. **The Live Matrix (0:10 - 0:45):** Display the full training matrix dashboard. Use a clear color code (Green for Compliant, Red for Expired/Missing). Filter by a specific site or team. *Immediate visual control.* / 2. **Qualification Control (0:45 - 1:20):** Show a supervisor trying to assign a worker to a high-hazard job (e.g., confined space entry). The system automatically flags: "Worker A is Missing Confined Space Permit Training." **(VISUAL: The system blocks the assignment.)** / 3. **Recertification Management (1:20 - 2:00):** Demonstrate the system's ability to alert supervisors (and the employee) 90, 60, and 30 days before a critical certification (e.g., Forklift License) expires. *No more late renewal scramble.* / 4. **Operational Readiness (2:00 - 2:25):** Display a report showing the "Operational Readiness Score" based on training completion. The Ops Director now has quantitative proof their teams are safe and compliant. / **[2:25 - 2:30] Clear CTA:** Stop guessing about compliance. Start proving it. Request a demo on implementing your digital Training Matrix.' },
+            // M3: REPORTING
+            'm3w9qt': { title: 'Executive Dashboards: 60-Second KPI Snapshot', type: 'Quick Tip', duration: '45s', icp: 'Operations Director', script: 'Your board doesn’t need a 30-page safety report. They need a 60-second snapshot of what matters. **(VISUAL: Shot of complex, dense, unreadable safety charts.)** / EcoOnline’s Executive Dashboard filters complex HSEQ data into 3 key KPIs: Incident Rate, Compliance Score, and Action Closure Rate. **(VISUAL: Quick screen recording of the clean, high-contrast Executive Dashboard.)** / You get instant, accurate, easy-to-digest data that proves you’re in control. **(VISUAL: Op Director confidently presenting the dashboard on a large screen.)** / Prove your value in a minute. See the full executive reporting suite.' },
+            'm3w9demo': { title: 'Incident Trends: Using Data to Predict and Prevent Future Events', type: 'ICP Demo', duration: '2:30', icp: 'Safety Manager', script: '**[0:00 - 0:10] Problem Hook:** If you’re only analyzing *what* happened yesterday, you’re already behind. World-class safety is about predicting *what will happen tomorrow*. Traditional reporting can't do that—it only gives you historical facts. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline uses your own data to reveal predictive patterns and leading indicators. / 1. **Data Correlation Engine (0:10 - 0:45):** Show the system correlating two different data types: *e.g., 80% of minor incidents occurred in Zone 4* and *70% of near misses were reported during the 3-5 PM shift.* The correlation is immediate and obvious. / 2. **Leading vs. Lagging (0:45 - 1:20):** Display the chart contrasting Lagging Indicators (Incidents) vs. Leading Indicators (Near Misses/Inspections). Show how a spike in Near Misses predicts an upcoming Incident spike. / 3. **The Predictive Action (1:20 - 2:00):** Based on the trend (e.g., repeated slip hazards in Zone 4), the system automatically flags a **Preventative Action** for a supervisor: *Conduct targeted inspection for flooring integrity in Zone 4.* / 4. **Intelligence Dashboard (2:00 - 2:25):** Show the dashboard that scores facilities based on *risk potential* rather than past failure. This is intelligence you can act on. / **[2:25 - 2:30] Clear CTA:** Stop reacting to yesterday’s failures. Start preventing tomorrow’s accidents. Book a personalized demo on predictive safety analytics.' },
+            'm3w10qt': { title: 'The Data Myth: Why Your Legacy Safety Software is Lying to You', type: 'Quick Tip', duration: '45s', icp: 'All Safety Roles', script: 'Your legacy system is telling you your safety metrics are fine, but your gut says otherwise. The myth is that outdated software integrates your full data picture. **(VISUAL: Split screen: Legacy software showing green dashboards vs. a messy storage closet.)** / EcoOnline provides true integration. **(VISUAL: Show an inspection finding immediately affecting the overall Incident Rate KPI.)** / Data from inspections, incidents, chemicals, and training all live in one model, giving you an honest, 360-degree view of risk. **(VISUAL: Graphics highlighting the interconnected data streams.)** / Get the real, non-siloed data. Explore EcoOnline’s unified HSEQ platform.' },
+            'm3w10demo': { title: 'Chemical Spills: Analyzing Exposure Risk Across All Facilities', type: 'ICP Demo', duration: '2:30', icp: 'Chemical Compliance Officer', script: '**[0:00 - 0:10] Problem Hook:** A chemical spill is your worst-case scenario. When it happens, you need to know *what* spilled, *where* it is, and who is *exposed* instantly. Slow response due to disorganized data is a legal and environmental catastrophe. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline gives you full, actionable chemical spill intelligence across all sites. / 1. **Emergency Response Profile (0:10 - 0:45):** Show the ability to quickly pull up a chemical’s Emergency Response Card. This includes fire response, first aid, and—critically—what PPE is needed for cleanup, all available on a mobile device at the scene. / 2. **Spill History Analysis (0:45 - 1:20):** Display a map or bar chart showing the frequency and volume of spills by location (e.g., Site C has 70% of all solvent spills). This identifies high-risk areas. / 3. **Exposure Mapping (1:20 - 2:00):** Show a report that aggregates chemical exposure hours by employee and chemical over a period. This is essential for long-term health monitoring and regulatory reporting (e.g., COSHH/OSHA). / 4. **Chemical Inventory Score (2:00 - 2:25):** Display a facility-level score based on inventory hazard and control measures. *This tells you where your biggest chemical risk lies.* / **[2:25 - 2:30] Clear CTA:** Secure your operations against chemical catastrophe. Book a session to review your chemical exposure management.' },
+            'm3w11qt': { title: 'Show Your Value: Quarterly Safety Performance Review Report', type: 'Quick Tip', duration: '45s', icp: 'Safety Manager', script: 'Are you showing the value of your safety program or just reporting fines? **(VISUAL: Safety Manager trying to explain dense, jargon-filled report to a skeptical executive.)** / EcoOnline helps you tell a success story. **(VISUAL: Screen recording: Generate a Quarterly Performance Review Report.)** / This report highlights the drop in incident rates, the increase in near-miss reporting, and the percentage of closed corrective actions. **(VISUAL: Show the report focusing on positive trend lines.)** / Use data to prove your safety department is a profit center, not a cost center. Generate your next performance review today.' },
+            'm3w11demo': { title: 'ROI of HSEQ: Quantifying the Value of Your Safety Investment', type: 'ICP Demo', duration: '2:30', icp: 'Operations Director', script: '**[0:00 - 0:10] Problem Hook:** Safety is often treated as a cost center, a necessary evil. But you know that proactive HSEQ management drives profit and operational uptime. How do you quantify that ROI to the CFO? / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline helps you build a financial case for safety by correlating HSEQ data with operational metrics. / 1. **Cost of Incident Visualization (0:10 - 0:45):** Show the system calculating the true cost of an incident: downtime, investigation hours, insurance claim increases. Display a summary chart of *Total Incident Cost vs. HSEQ System Cost.* / 2. **Near Miss Value (0:45 - 1:20):** Demonstrate how the system tracks the value of *prevented* incidents. For example, if 10 near-misses were closed, the system estimates the potential cost avoided by preventing a Lost Time Injury. / 3. **Uptime Correlation (1:20 - 2:00):** Show reporting that correlates high training compliance (Leading Indicator) with higher operational uptime in a specific facility. *Safe facilities run better.* / 4. **The ROI Summary (2:00 - 2:25):** Display the clear, executive-friendly report that calculates HSEQ ROI in dollars and cents, not just LTI rates. This is the language the board understands. / **[2:25 - 2:30] Clear CTA:** Stop justifying cost. Start proving ROI. Book a strategy session on quantifying your HSEQ investment.' },
+            'm3w12qt': { title: 'Proactive Safety: Identifying Leading Indicators in Your Data', type: 'Quick Tip', duration: '45s', icp: 'EHS Specialist', script: 'Your goal isn’t to report injuries; it’s to prevent them. You need to focus on leading indicators, but where are they hidden in your data? **(VISUAL: EHS Specialist trying to manually compare two different charts.)** / EcoOnline automatically spotlights the 3 key leading indicators. **(VISUAL: Show the dashboard: Near Miss Rate, Inspection Compliance Score, and Corrective Action Closure Rate.)** / If any of these drop, you get an alert. Fix the leading indicator, and the lagging indicator (incidents) will drop. **(VISUAL: Show an immediate action being generated from a low inspection score.)** / Get proactive data, not just historical facts. See the EcoOnline leading indicators dashboard.' },
+            'm3w12demo': { title: 'The Compliance Story: Visualizing Audit Readiness for the Board', type: 'ICP Demo', duration: '2:30', icp: 'Chemical Compliance Officer', script: '**[0:00 - 0:10] Problem Hook:** When reporting compliance status to the board, you can’t just show checklists. You need a narrative that proves the company is not just *meeting* standards, but *managing* risk. Your current reports are too dense to tell that story. / **[0:10 - 2:25] Solution Demonstration (Screen Share Focus):** EcoOnline generates executive-ready visual compliance stories that inspire confidence. / 1. **Compliance Heatmap (0:10 - 0:45):** Display a global or regional map visualization where facilities are color-coded by their *live compliance score* (Green, Yellow, Red). This provides instant, high-level risk visualization for executives. / 2. **The Audit Trail Narrative (0:45 - 1:20):** Show the system generating an easy-to-read timeline proving compliance with a specific regulation (e.g., REACH/GHS). Highlight the time stamps of all automated SDS updates and training completions. / 3. **Risk Reduction Trends (1:20 - 2:00):** Display a simple, high-contrast trend line showing the organization's **Hazard Exposure Score** decreasing over the last 12 months due to proactive management. This is the story of success. / 4. **Next-Step Strategy (2:00 - 2:25):** Show the automated "Top 3 Remaining Risks" list, proving the Compliance Officer knows the problem and has an active, trackable plan to fix it. *Clarity and control.* / **[2:25 - 2:30] Clear CTA:** Present a clear, confident compliance story. Book a demo to see our executive reporting suite in action.' }
+        
+        function showScript(id) {
+            const data = videoScripts[id];
+            if (!data) return;
+
+            document.getElementById('script-title').textContent = data.title;
+            document.getElementById('script-type-icp').textContent = `${data.type} (Target ICP: ${data.icp})`;
+            document.getElementById('script-duration').textContent = `Duration: ${data.duration}`;
+            
+            // Format script content with line breaks for readability
+            const formattedScript = data.script.split('/').map(line => {
+                const parts = line.trim().split(':', 2);
+                if (parts.length > 1 && parts[0].includes('(') && parts[0].includes(')')) {
+                    return `<p class="mb-3 font-semibold text-brand-navy">${line.trim()}</p>`;
+                } else if (parts.length > 1 && parts[0].trim().length < 20) {
+                    return `<p class="mb-3 mt-4 text-sm font-bold text-accent-cyan">${line.trim()}</p>`;
+                } else {
+                    return `<p class="mb-3">${line.trim()}</p>`;
+                }
+            }).join('');
+
+            document.getElementById('script-content').innerHTML = formattedScript;
+
+            document.getElementById('script-modal').classList.add('open');
+            document.getElementById('modal-overlay').classList.add('open');
+        }
+
+        function closeScript() {
+            document.getElementById('script-modal').classList.remove('open');
+            document.getElementById('modal-overlay').classList.remove('open');
+        }
+    </script>
 </head>
 <body class="text-brand-navy">
 
     <!-- The selected palette for this infographic is the combination of Primary Dark, Brand Navy, Accent Cyan, and Action Orange. -->
     <!-- NEITHER Mermaid JS NOR SVG were used anywhere in the output. -->
+
+    <div id="modal-overlay" onclick="closeScript()"></div>
+
+    <div id="script-modal" class="p-6 overflow-y-auto">
+        <div class="flex justify-between items-start border-b pb-4 mb-4 border-accent-cyan">
+            <h3 id="script-title" class="text-2xl font-bold text-brand-navy pr-4">Script Title Placeholder</h3>
+            <button onclick="closeScript()" class="text-3xl font-light text-brand-navy hover:text-action-orange transition duration-150">&times;</button>
+        </div>
+        <div class="mb-4">
+            <span id="script-type-icp" class="text-sm font-semibold text-accent-cyan"></span>
+            <span id="script-duration" class="ml-4 text-sm font-semibold text-action-orange"></span>
+        </div>
+        <div id="script-content" class="text-sm leading-relaxed text-gray-700">Script content will appear here.</div>
+    </div>
 
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
 
@@ -121,7 +243,7 @@
         <section class="brand-card md:col-span-2">
             <h2 class="text-3xl font-bold text-brand-navy border-b-4 border-accent-cyan pb-3 mb-6">Pillar 3: The Content Deployment Grid (12 Weeks)</h2>
             <p class="text-lg mb-8">
-                Every title is engineered to speak directly to a pain point. The **Quick Tips (QT)** build virality and search visibility. The **ICP Demos (DEMO)** are your conversion workhorses. **Duration is a hard constraint.**
+                Every title is engineered to speak directly to a pain point. The **Quick Tips (QT)** build virality and search visibility. The **ICP Demos (DEMO)** are your conversion workhorses. **Click the title to view the full script.**
             </p>
 
             <div class="overflow-x-auto rounded-lg shadow-xl">
@@ -131,7 +253,7 @@
                         <div class="p-3 w-[10%]">Week</div>
                         <div class="p-3 w-[10%]">Type</div>
                         <div class="p-3 w-[10%]">Duration</div>
-                        <div class="p-3 w-[40%]">Title (Pain Point Focused)</div>
+                        <div class="p-3 w-[40%]">Title (Click for Script)</div>
                         <div class="p-3 w-[15%]">Target ICP</div>
                         <div class="p-3 w-[15%]">Goal</div>
                     </div>
@@ -143,7 +265,7 @@
                         <div class="grid-cell">W1</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Stop Hunting! The 30-Second Chemical Search Hack</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w1qt')">Stop Hunting! The 30-Second Chemical Search Hack</span></div>
                         <div class="grid-cell">EHS Specialist</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -151,7 +273,7 @@
                         <div class="grid-cell">W1</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">How Safety Managers Cut Incident Reporting Time by 40%</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w1demo')">How Safety Managers Cut Incident Reporting Time by 40%</span></div>
                         <div class="grid-cell">Safety Manager</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -159,7 +281,7 @@
                         <div class="grid-cell">W2</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Auto-Assigning Training: The 2-Click Workflow for Ops Directors</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w2qt')">Auto-Assigning Training: The 2-Click Workflow for Ops Directors</span></div>
                         <div class="grid-cell">Operations Director</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -167,7 +289,7 @@
                         <div class="grid-cell">W2</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Compliance Simplified: Automated SDS Updates & Distribution</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w2demo')">Compliance Simplified: Automated SDS Updates & Distribution</span></div>
                         <div class="grid-cell">Chemical Compliance Officer</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -175,7 +297,7 @@
                         <div class="grid-cell">W3</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">1-Minute Audit Ready: Generating Compliance Reports in 2 Clicks</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w3qt')">1-Minute Audit Ready: Generating Compliance Reports in 2 Clicks</span></div>
                         <div class="grid-cell">Chemical Compliance Officer</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -183,7 +305,7 @@
                         <div class="grid-cell">W3</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">The Efficiency Blueprint: Automating Chemical Inventory Management</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w3demo')">The Efficiency Blueprint: Automating Chemical Inventory Management</span></div>
                         <div class="grid-cell">EHS Specialist</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -191,7 +313,7 @@
                         <div class="grid-cell">W4</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Mobile First: Capturing Incidents Offline for Faster Resolution</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w4qt')">Mobile First: Capturing Incidents Offline for Faster Resolution</span></div>
                         <div class="grid-cell">Safety Manager</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -199,7 +321,7 @@
                         <div class="grid-cell">W4</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Beyond Paper: Digitalizing Your HSEQ Workflow (For Safety Managers)</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m1w4demo')">Beyond Paper: Digitalizing Your HSEQ Workflow (For Safety Managers)</span></div>
                         <div class="grid-cell">Safety Manager</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -211,7 +333,7 @@
                         <div class="grid-cell">W5</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Lockout/Tagout: How to Prove Compliance Instantly</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w5qt')">Lockout/Tagout: How to Prove Compliance Instantly</span></div>
                         <div class="grid-cell">Safety Manager</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -219,7 +341,7 @@
                         <div class="grid-cell">W5</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Global Compliance: Managing Multi-Region GHS Standards Seamlessly</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w5demo')">Global Compliance: Managing Multi-Region GHS Standards Seamlessly</span></div>
                         <div class="grid-cell">Chemical Compliance Officer</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -227,7 +349,7 @@
                         <div class="grid-cell">W6</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Know Your Exposure: Quick Hazard Identification Check</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w6qt')">Know Your Exposure: Quick Hazard Identification Check</span></div>
                         <div class="grid-cell">EHS Specialist</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -235,7 +357,7 @@
                         <div class="grid-cell">W6</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Why Your Incident Rate Spikes (And How to Fix It with Root Cause)</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w6demo')">Why Your Incident Rate Spikes (And How to Fix It with Root Cause)</span></div>
                         <div class="grid-cell">Safety Manager</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -243,7 +365,7 @@
                         <div class="grid-cell">W7</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">The Critical Difference: Managing Near Misses vs. Incidents</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w7qt')">The Critical Difference: Managing Near Misses vs. Incidents</span></div>
                         <div class="grid-cell">All Safety Roles</div>
                         <div class="grid-cell">Thought Leadership / Education</div>
                     </div>
@@ -251,7 +373,7 @@
                         <div class="grid-cell">W7</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Operations Risk: How to Proactively Identify High-Risk Assets</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w7demo')">Operations Risk: How to Proactively Identify High-Risk Assets</span></div>
                         <div class="grid-cell">Operations Director</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -259,7 +381,7 @@
                         <div class="grid-cell">W8</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Stop Fines: Automated Chemical Re-Classification Alerts</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w8qt')">Stop Fines: Automated Chemical Re-Classification Alerts</span></div>
                         <div class="grid-cell">Chemical Compliance Officer</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -267,7 +389,7 @@
                         <div class="grid-cell">W8</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Training Matrix: Closing Compliance Gaps Immediately for Ops</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m2w8demo')">Training Matrix: Closing Compliance Gaps Immediately for Ops</span></div>
                         <div class="grid-cell">Operations Director</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -279,7 +401,7 @@
                         <div class="grid-cell">W9</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Executive Dashboards: 60-Second KPI Snapshot</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w9qt')">Executive Dashboards: 60-Second KPI Snapshot</span></div>
                         <div class="grid-cell">Operations Director</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -287,7 +409,7 @@
                         <div class="grid-cell">W9</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Incident Trends: Using Data to Predict and Prevent Future Events</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w9demo')">Incident Trends: Using Data to Predict and Prevent Future Events</span></div>
                         <div class="grid-cell">Safety Manager</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -295,7 +417,7 @@
                         <div class="grid-cell">W10</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">The Data Myth: Why Your Legacy Safety Software is Lying to You</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w10qt')">The Data Myth: Why Your Legacy Safety Software is Lying to You</span></div>
                         <div class="grid-cell">All Safety Roles</div>
                         <div class="grid-cell">Thought Leadership / Virality</div>
                     </div>
@@ -303,7 +425,7 @@
                         <div class="grid-cell">W10</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">Chemical Spills: Analyzing Exposure Risk Across All Facilities</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w10demo')">Chemical Spills: Analyzing Exposure Risk Across All Facilities</span></div>
                         <div class="grid-cell">Chemical Compliance Officer</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -311,7 +433,7 @@
                         <div class="grid-cell">W11</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Show Your Value: Quarterly Safety Performance Review Report</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w11qt')">Show Your Value: Quarterly Safety Performance Review Report</span></div>
                         <div class="grid-cell">Safety Manager</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -319,7 +441,7 @@
                         <div class="grid-cell">W11</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">ROI of HSEQ: Quantifying the Value of Your Safety Investment</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w11demo')">ROI of HSEQ: Quantifying the Value of Your Safety Investment</span></div>
                         <div class="grid-cell">Operations Director</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -327,7 +449,7 @@
                         <div class="grid-cell">W12</div>
                         <div class="grid-cell text-accent-cyan font-bold">QT</div>
                         <div class="grid-cell font-semibold text-accent-cyan">45s</div>
-                        <div class="grid-cell font-semibold">Proactive Safety: Identifying Leading Indicators in Your Data</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w12qt')">Proactive Safety: Identifying Leading Indicators in Your Data</span></div>
                         <div class="grid-cell">EHS Specialist</div>
                         <div class="grid-cell">Top-of-Funnel / Utility</div>
                     </div>
@@ -335,7 +457,7 @@
                         <div class="grid-cell">W12</div>
                         <div class="grid-cell text-action-orange font-bold">DEMO</div>
                         <div class="grid-cell font-semibold text-action-orange">2:30</div>
-                        <div class="grid-cell font-semibold">The Compliance Story: Visualizing Audit Readiness for the Board</div>
+                        <div class="grid-cell font-semibold"><span class="script-link" onclick="showScript('m3w12demo')">The Compliance Story: Visualizing Audit Readiness for the Board</span></div>
                         <div class="grid-cell">Chemical Compliance Officer</div>
                         <div class="grid-cell">Lead Capture / Conversion</div>
                     </div>
@@ -343,15 +465,15 @@
             </div>
             
             <div class="mt-10 text-center p-6 bg-accent-cyan/10 rounded-lg">
-                <h3 class="text-xl font-bold text-brand-navy">CRITICAL SCRIPTING MANDATE:</h3>
-                <p class="mt-2 text-lg">Every script must follow a structure: **(0-10s) Problem Hook** → **(10-60s) Solution Demonstration** → **(Last 5s) Clear CTA**. Now that the plan is finalized and visually correct, the next step is content creation.</p>
+                <h3 class="text-xl font-bold text-brand-navy">CRITICAL NEXT STEP:</h3>
+                <p class="mt-2 text-lg">The content is written and the structure is finalized. Your next job is production. Start with the Week 1 ICP Demo and maintain the tight length constraints for every single video.</p>
             </div>
         </section>
 
     </div>
 
+    <!-- DOM-DEPENDENT CHART INITIALIZATION SCRIPT -->
     <script>
-        
         const tooltipTitleCallback = {
             plugins: {
                 tooltip: {
