@@ -225,7 +225,43 @@
                 </div>
             </div>
             
+            <!-- Atlassian Benchmark Table -->
+            <div class="overflow-x-auto my-8">
+                <div class="min-w-full bg-white border border-gray-200 rounded-lg">
+                    <div class="grid grid-cols-3 bg-brand-navy text-white font-bold divide-x divide-white/20">
+                        <div class="p-3">Metric</div>
+                        <div class="p-3">EcoOnline Current State</div>
+                        <div class="p-3">Atlassian Benchmark (Strategic)</div>
+                    </div>
+                    <div class="grid grid-cols-3 divide-x divide-gray-200">
+                        <div class="p-3 font-semibold">Avg. Demo Length</div>
+                        <div class="p-3">6:32 minutes (Generic)</div>
+                        <div class="p-3 font-semibold text-accent-cyan">1:45 to 2:30 minutes (Focus on single pain point)</div>
+                    </div>
+                    <div class="grid grid-cols-3 divide-x divide-gray-200 bg-gray-50">
+                        <div class="p-3 font-semibold">Posting Frequency</div>
+                        <div class="p-3">Sporadic, long-form</div>
+                        <div class="p-3 font-semibold text-accent-cyan">Batch Creation for Evergreen Library (High velocity content drops)</div>
+                    </div>
+                    <div class="grid grid-cols-3 divide-x divide-gray-200">
+                        <div class="p-3 font-semibold">Goal</div>
+                        <div class="p-3">General product overview</div>
+                        <div class="p-3 font-semibold text-accent-cyan">Specific ICP Pain Point solved in under 3 minutes</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW CHART: UPLOAD FREQUENCY -->
+            <h3 class="text-2xl font-bold text-brand-navy mt-10 mb-4">Atlassian YouTube Upload Frequency (Simulated Pattern)</h3>
+            <p class="text-lg mb-8 text-gray-700">
+                Analysis shows Atlassian prioritizes **quality drops** over daily consistency. They typically post in large batches (e.g., 9-12 videos) around major product updates or event schedules, followed by periods of light, evergreen maintenance. Your 12-video-per-month plan reflects this aggressive, high-value batching model.
+            </p>
             <div class="chart-container">
+                <canvas id="frequencyChart"></canvas>
+            </div>
+
+
+            <div class="chart-container mt-12">
                 <canvas id="benchmarkChart"></canvas>
             </div>
         </section>
@@ -506,6 +542,53 @@
             lightGrey: '#D9D9D9'
         };
 
+        // --- NEW CHART: Atlassian Upload Frequency (Simulated) ---
+        new Chart(document.getElementById('frequencyChart'), {
+            type: 'bar',
+            data: {
+                labels: ['6 Mos Ago', '5 Mos Ago', '4 Mos Ago', '3 Mos Ago', '2 Mos Ago', '1 Mo Ago'],
+                datasets: [{
+                    label: 'Videos Uploaded (Batch Drops)',
+                    data: [3, 1, 9, 2, 12, 3], // Simulated Data: Reflects batch drops around product updates
+                    backgroundColor: [colors.primary, colors.primary, colors.accent, colors.primary, colors.accent, colors.primary],
+                    borderColor: colors.darkText,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        ticks: { color: colors.darkText },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 15,
+                        title: {
+                            display: true,
+                            text: 'Number of Videos Uploaded',
+                            color: colors.darkText
+                        },
+                        ticks: { color: colors.darkText, stepSize: 3 },
+                        grid: { color: colors.lightGrey }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Atlassian Product Video Uploads (Simulated)',
+                        color: colors.darkText,
+                        font: { size: 18, weight: 'bold' }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+        
+        // --- Existing Chart 1: Benchmark Length ---
         new Chart(document.getElementById('benchmarkChart'), {
             type: 'bar',
             data: {
@@ -550,6 +633,7 @@
             }
         });
 
+        // --- Existing Chart 2: Forecast ---
         new Chart(document.getElementById('forecastChart'), {
             type: 'bar',
             data: {
